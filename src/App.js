@@ -5,16 +5,17 @@ import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
 
 const initialContact = {
-  id: Date.now(),
-  name: "Bob DaBuilda",
-  phone: 4044444444,
+  name: "Bob Anderson",
+  phone: "333-333-3333",
   email: "bob@bob.com",
 };
 
 function App() {
-  //Define state variables for contacts and appointments
-  const [contacts, setContacts] = useState(initialContact);
+  //Define state for contacts and appointments
+  const [contacts, setContacts] = useState([initialContact]);
   const [appointments, setAppointments] = useState([]);
+
+  // contacts.push(initialContact);
 
   const ROUTES = {
     CONTACTS: "/contacts",
@@ -30,7 +31,6 @@ function App() {
       newContact.email,
     ]);
   };
-  console.log(contacts);
 
   let newAppointment = (title, contact, date, time) => {
     setAppointments([
@@ -65,8 +65,8 @@ function App() {
             {/* Add props to AppointmentsPage */}
             <AppointmentsPage
               appointments={appointments}
-              contacts={contacts}
               newAppointment={newAppointment}
+              contacts={contacts}
             />
           </Route>
         </Switch>

@@ -9,23 +9,33 @@ export const ContactsPage = (props) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-
   const [duplicateCheck, setDuplicateCheck] = useState(false);
 
-  //   useEffect(() => {
-  //   setDuplicateCheck(
-  //   )
-  // })
+  // check name in contacts array against newContact.name to identify duplicates
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     contacts.forEach((contact) => {
       if (contact.name === newContact.name) {
-        return alert("This contact already exists");
-      } else {
-        return contacts.push(newContact);
+        setDuplicateCheck(true);
       }
-    });
+    }, []);
+  });
+  console.log(newContact.name);
+
+  // handler function to return alert if duplicate or new contact if valid entry
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitted");
+
+    if (duplicateCheck === true) {
+      alert("This contact already exists");
+    }
+    if (duplicateCheck === false) {
+      contacts.push(newContact);
+      console.log(contacts);
+      alert("false check");
+      return [...contacts, newContact];
+    }
   };
 
   // Add contact info and clear data if the contact name is not a duplicate
@@ -38,8 +48,11 @@ export const ContactsPage = (props) => {
         <h2>Add Contact</h2>
         <ContactForm
           name={name}
+          setName={setName}
           phone={phone}
+          setPhone={setPhone}
           email={email}
+          setEmail={setEmail}
           handleSubmit={handleSubmit}
         />
       </section>
